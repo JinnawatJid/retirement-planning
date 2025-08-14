@@ -1,0 +1,208 @@
+'use client';
+
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
+type Language = 'th' | 'en';
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+}
+
+const translations = {
+  th: {
+    // Landing Page
+    'landing.title': 'วางแผนเกษียณอายุ',
+    'landing.subtitle': 'เริ่มวางแผนการเงินเพื่ออนาคตที่มั่นคงของคุณ',
+    'landing.why.title': 'ทำไมต้องวางแผนเกษียณอายุ?',
+    'landing.why.point1': 'เงินเฟ้อทำให้ค่าครองชีพสูงขึ้นเรื่อยๆ',
+    'landing.why.point2': 'เงินเดือนหลังเกษียณอาจไม่เพียงพอ',
+    'landing.why.point3': 'การออมเงินตั้งแต่วันนี้จะช่วยให้อนาคตมั่นคง',
+    'landing.why.point4': 'การลงทุนระยะยาวจะสร้างผลตอบแทนที่ดี',
+    'landing.cta': 'เริ่มคำนวณแผนเกษียณ',
+    
+    // Form
+    'form.title': 'ข้อมูลสำหรับการวางแผนเกษียณ',
+    'form.step': 'ขั้นตอนที่',
+    'form.of': 'จาก',
+    'form.next': 'ถัดไป',
+    'form.back': 'กลับ',
+    'form.calculate': 'คำนวณผล',
+    
+    'form.startAge.label': 'เริ่มทำงานตอนอายุกี่ปี?',
+    'form.startAge.placeholder': 'เช่น 22',
+    
+    'form.salary.label': 'เงินเดือนที่ได้รับ?',
+    'form.salary.placeholder': 'เช่น 30,000',
+    'form.salary.unit': 'บาท',
+    
+    'form.monthlySavings.label': 'ออมเงินเดือนละเท่าไหร่?',
+    'form.monthlySavings.placeholder': 'เช่น 5,000',
+    'form.monthlySavings.unit': 'บาท',
+    
+    'form.retireAge.label': 'จะเกษียณอายุเท่าไหร่?',
+    'form.retireAge.placeholder': 'เช่น 60',
+    
+    'form.monthlyExpense.label': 'ต้องการใช้เงินเกษียณเดือนละกี่บาท?',
+    'form.monthlyExpense.placeholder': 'เช่น 20,000',
+    'form.monthlyExpense.unit': 'บาท',
+    
+    'form.lifeExpectancy.label': 'คาดว่าจะมีชีวิตถึงเมื่อไหร่?',
+    'form.lifeExpectancy.placeholder': 'เช่น 80',
+    
+    // Results
+    'results.title': 'ผลการคำนวณแผนเกษียณ',
+    'results.workPeriod': 'เราทำงานทั้งสิ้น',
+    'results.retirePeriod': 'ใช้ชีวิตหลังเกษียณอีก',
+    'results.years': 'ปี',
+    'results.months': 'เดือน',
+    'results.or': 'หรือ',
+    'results.totalSavings': 'เงินออมตลอดช่วงที่ทำงาน',
+    'results.totalExpense': 'ต้องการจะใช้เงินหลังเกษียณ',
+    'results.perMonth': 'เดือนละ',
+    'results.working': 'ทำงาน',
+    'results.retired': 'เกษียณ',
+    'results.save': 'บันทึก',
+    'results.share': 'แชร์',
+    
+    // Share Modal
+    'share.title': 'แชร์ผลการคำนวณ',
+    'share.link': 'คัดลอกลิงก์',
+    'share.facebook': 'แชร์ใน Facebook',
+    'share.instagram': 'แชร์ใน Instagram Stories',
+    'share.copied': 'คัดลอกแล้ว!',
+    
+    // Donation
+    'donation.title': 'สนับสนุนนักพัฒนา',
+    'donation.subtitle': 'หากคุณชอบเครื่องมือนี้ สามารถสนับสนุนการพัฒนาได้',
+    'donation.promptpay': 'โอนผ่าน PromptPay',
+    'donation.bank': 'ธนาคารกรุงเทพ',
+    'donation.thanks': 'ขอบคุณสำหรับการสนับสนุน!',
+    'donation.close': 'ปิด',
+    
+    // Common
+    'common.close': 'ปิด',
+    'common.baht': 'บาท',
+    'common.age': 'อายุ',
+    'common.year': 'ปี',
+    'common.month': 'เดือน',
+    'common.darkMode': 'โหมดมืด',
+    'common.lightMode': 'โหมดสว่าง',
+  },
+  en: {
+    // Landing Page
+    'landing.title': 'Retirement Planning',
+    'landing.subtitle': 'Start planning your finances for a secure future',
+    'landing.why.title': 'Why Plan for Retirement?',
+    'landing.why.point1': 'Inflation increases cost of living over time',
+    'landing.why.point2': 'Post-retirement income may not be sufficient',
+    'landing.why.point3': 'Saving from today ensures a secure future',
+    'landing.why.point4': 'Long-term investments provide good returns',
+    'landing.cta': 'Start Retirement Calculator',
+    
+    // Form
+    'form.title': 'Retirement Planning Information',
+    'form.step': 'Step',
+    'form.of': 'of',
+    'form.next': 'Next',
+    'form.back': 'Back',
+    'form.calculate': 'Calculate',
+    
+    'form.startAge.label': 'What age did you start working?',
+    'form.startAge.placeholder': 'e.g. 22',
+    
+    'form.salary.label': 'What is your monthly salary?',
+    'form.salary.placeholder': 'e.g. 1,000',
+    'form.salary.unit': 'USD',
+    
+    'form.monthlySavings.label': 'How much do you save monthly?',
+    'form.monthlySavings.placeholder': 'e.g. 200',
+    'form.monthlySavings.unit': 'USD',
+    
+    'form.retireAge.label': 'At what age will you retire?',
+    'form.retireAge.placeholder': 'e.g. 60',
+    
+    'form.monthlyExpense.label': 'How much do you need monthly after retirement?',
+    'form.monthlyExpense.placeholder': 'e.g. 800',
+    'form.monthlyExpense.unit': 'USD',
+    
+    'form.lifeExpectancy.label': 'What is your expected lifespan?',
+    'form.lifeExpectancy.placeholder': 'e.g. 80',
+    
+    // Results
+    'results.title': 'Retirement Planning Results',
+    'results.workPeriod': 'Total working period',
+    'results.retirePeriod': 'Life after retirement',
+    'results.years': 'years',
+    'results.months': 'months',
+    'results.or': 'or',
+    'results.totalSavings': 'Total savings during working period',
+    'results.totalExpense': 'Total expenses needed after retirement',
+    'results.perMonth': 'per month',
+    'results.working': 'Working',
+    'results.retired': 'Retired',
+    'results.save': 'Save',
+    'results.share': 'Share',
+    
+    // Share Modal
+    'share.title': 'Share Results',
+    'share.link': 'Copy Link',
+    'share.facebook': 'Share on Facebook',
+    'share.instagram': 'Share on Instagram Stories',
+    'share.copied': 'Copied!',
+    
+    // Donation
+    'donation.title': 'Support the Developer',
+    'donation.subtitle': 'If you like this tool, you can support its development',
+    'donation.promptpay': 'Transfer via PromptPay',
+    'donation.bank': 'Bangkok Bank',
+    'donation.thanks': 'Thank you for your support!',
+    'donation.close': 'Close',
+    
+    // Common
+    'common.close': 'Close',
+    'common.baht': 'USD',
+    'common.age': 'age',
+    'common.year': 'year',
+    'common.month': 'month',
+    'common.darkMode': 'Dark Mode',
+    'common.lightMode': 'Light Mode',
+  },
+};
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [language, setLanguage] = useState<Language>('th');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('language') as Language;
+    if (saved && (saved === 'th' || saved === 'en')) {
+      setLanguage(saved);
+    }
+  }, []);
+
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
+
+  const t = (key: string): string => {
+    return translations[language][key as keyof typeof translations[typeof language]] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+}
