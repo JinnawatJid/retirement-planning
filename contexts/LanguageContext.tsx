@@ -70,7 +70,7 @@ const translations = {
     'share.title': 'แชร์ผลการคำนวณ',
     'share.link': 'คัดลอกลิงก์',
     'share.facebook': 'แชร์ใน Facebook',
-    'share.instagram': 'แชร์ใน Instagram Stories',
+    'share.line': 'แชร์ใน Line',
     'share.copied': 'คัดลอกแล้ว!',
     
     // Donation
@@ -149,7 +149,7 @@ const translations = {
     'share.title': 'Share Results',
     'share.link': 'Copy Link',
     'share.facebook': 'Share on Facebook',
-    'share.instagram': 'Share on Instagram Stories',
+    'share.line': 'Share on Line',
     'share.copied': 'Copied!',
     
     // Donation
