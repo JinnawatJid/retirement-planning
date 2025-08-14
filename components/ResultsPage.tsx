@@ -1,7 +1,9 @@
 'use client';
 
+import { useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Save, Share2, Download, ArrowLeft } from 'lucide-react';
+import { Share2, Download, ArrowLeft } from 'lucide-react';
+import html2canvas from 'html2canvas';
 
 interface FormData {
   startAge: number;
@@ -34,29 +36,28 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
     return new Intl.NumberFormat(language === 'th' ? 'th-TH' : 'en-US').format(num);
   };
 
-  const saveResults = () => {
-    const results = {
-      data,
-      calculations: {
-        workingYears,
-        workingMonths,
-        retirementYears,
-        retirementMonths,
-        totalSavings,
-        totalExpenses,
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  const saveResults = async () => {
+    if (!resultsRef.current) return;
+
+    const canvas = await html2canvas(resultsRef.current, {
+      useCORS: true,
+      onclone: (document) => {
+        const adElement = document.querySelector('#ad-space');
+        if (adElement) {
+          (adElement as HTMLElement).style.display = 'none';
+        }
       },
-      timestamp: new Date().toISOString(),
-    };
-    
-    const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
+    });
+
+    const dataUrl = canvas.toDataURL('image/png');
     const a = document.createElement('a');
-    a.href = url;
-    a.download = `retirement-plan-${new Date().toISOString().split('T')[0]}.json`;
+    a.href = dataUrl;
+    a.download = `retirement-plan-${new Date().toISOString().split('T')[0]}.png`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
   };
 
   // Progress bar calculation (working period vs total life span considered)
@@ -84,7 +85,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
                 onClick={saveResults}
                 className="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
               >
-                <Save className="w-4 h-4 mr-2" />
+                <Download className="w-4 h-4 mr-2" />
                 {t('results.save')}
               </button>
               <button
@@ -99,7 +100,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div ref={resultsRef} className="container mx-auto px-4 py-8">
         {/* Main Results Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Left Side - Working Period */}
@@ -249,7 +250,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
         </div>
 
         {/* Ad Space */}
-        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-8 text-center">
+        <div id="ad-space" className="bg-gray-100 dark:bg-gray-700 rounded-lg p-8 text-center">
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">
             Advertisement Space
           </p>
