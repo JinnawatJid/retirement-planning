@@ -9,6 +9,8 @@ import ShareModal from '@/components/ShareModal';
 import DonationModal from '@/components/DonationModal';
 
 interface FormData {
+  name: string;
+  avatar: string;
   startAge: number;
   salary: number;
   monthlySavings: number;
@@ -32,6 +34,8 @@ export default function Home() {
     
     if (startAge) {
       const data: FormData = {
+        name: urlParams.get('name') || 'Anonymous',
+        avatar: urlParams.get('avatar') || '/avatar/Tisha.png',
         startAge: parseInt(startAge) || 22,
         salary: parseInt(urlParams.get('salary') || '30000'),
         monthlySavings: parseInt(urlParams.get('monthlySavings') || '5000'),
