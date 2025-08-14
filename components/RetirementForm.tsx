@@ -75,15 +75,20 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
               {t('form.startAge.label')}
             </label>
-            <input
-              type="number"
-              value={formData.startAge}
-              onChange={(e) => updateField('startAge', parseInt(e.target.value) || 0)}
-              placeholder={t('form.startAge.placeholder')}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
-              min="15"
-              max="35"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={formData.startAge}
+                onChange={(e) => updateField('startAge', parseInt(e.target.value) || 0)}
+                placeholder={t('form.startAge.placeholder')}
+                className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
+                min="15"
+                max="35"
+              />
+              <span className="absolute right-3 top-3 text-gray-500 dark:text-gray-400">
+                {t('form.startAge.unit')}
+              </span>
+            </div>
           </div>
         );
       case 3:
@@ -134,15 +139,20 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
               {t('form.retireAge.label')}
             </label>
-            <input
-              type="number"
-              value={formData.retireAge}
-              onChange={(e) => updateField('retireAge', parseInt(e.target.value) || 0)}
-              placeholder={t('form.retireAge.placeholder')}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
-              min="50"
-              max="80"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={formData.retireAge}
+                onChange={(e) => updateField('retireAge', parseInt(e.target.value) || 0)}
+                placeholder={t('form.retireAge.placeholder')}
+                className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
+                min="50"
+                max="80"
+              />
+              <span className="absolute right-3 top-3 text-gray-500 dark:text-gray-400">
+                {t('form.retireAge.unit')}
+              </span>
+            </div>
           </div>
         );
       case 6:
@@ -172,15 +182,20 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
               {t('form.lifeExpectancy.label')}
             </label>
-            <input
-              type="number"
-              value={formData.lifeExpectancy}
-              onChange={(e) => updateField('lifeExpectancy', parseInt(e.target.value) || 0)}
-              placeholder={t('form.lifeExpectancy.placeholder')}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
-              min="65"
-              max="100"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={formData.lifeExpectancy}
+                onChange={(e) => updateField('lifeExpectancy', parseInt(e.target.value) || 0)}
+                placeholder={t('form.lifeExpectancy.placeholder')}
+                className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
+                min="65"
+                max="100"
+              />
+              <span className="absolute right-3 top-3 text-gray-500 dark:text-gray-400">
+                {t('form.lifeExpectancy.unit')}
+              </span>
+            </div>
           </div>
         );
       default:

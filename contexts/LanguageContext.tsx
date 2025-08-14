@@ -13,47 +13,50 @@ interface LanguageContextType {
 const translations = {
   th: {
     // Landing Page
-    'landing.title': 'วางแผนเกษียณอายุ',
+    'landing.title': 'วางแผนเกษียณ',
     'landing.subtitle': 'เริ่มวางแผนการเงินเพื่ออนาคตที่มั่นคงของคุณ',
-    'landing.why.title': 'ทำไมต้องวางแผนเกษียณอายุ?',
+    'landing.why.title': 'ทำไมต้องวางแผนเกษียณ?',
     'landing.why.point1': 'เงินเฟ้อทำให้ค่าครองชีพสูงขึ้นเรื่อยๆ',
     'landing.why.point2': 'เงินเดือนหลังเกษียณอาจไม่เพียงพอ',
-    'landing.why.point3': 'การออมเงินตั้งแต่วันนี้จะช่วยให้อนาคตมั่นคง',
+    'landing.why.point3': 'ออมเงินตั้งแต่วันนี้จะช่วยให้อนาคตมั่นคง',
     'landing.why.point4': 'การลงทุนระยะยาวจะสร้างผลตอบแทนที่ดี',
     'landing.cta': 'เริ่มคำนวณแผนเกษียณ',
     
     // Form
-    'form.title': 'ข้อมูลสำหรับการวางแผนเกษียณ',
+    'form.title': 'แนะนำตัวหน่อยสิ!',
     'form.step': 'ขั้นตอนที่',
     'form.of': 'จาก',
     'form.next': 'ถัดไป',
     'form.back': 'กลับ',
     'form.calculate': 'คำนวณผล',
     
-    'form.startAge.label': 'เริ่มทำงานตอนอายุกี่ปี?',
+    'form.startAge.label': 'เธอเริ่มทำงานตอนอายุเท่าไหร่?',
     'form.startAge.placeholder': 'เช่น 22',
+    'form.startAge.unit': 'ปี',
     
-    'form.salary.label': 'เงินเดือนที่ได้รับ?',
+    'form.salary.label': 'เงินเดือนที่ได้รับล่ะ?',
     'form.salary.placeholder': 'เช่น 30,000',
     'form.salary.unit': 'บาท',
     
-    'form.monthlySavings.label': 'ออมเงินเดือนละเท่าไหร่?',
+    'form.monthlySavings.label': 'แล้วออมเงินเดือนละเท่าไหร่?',
     'form.monthlySavings.placeholder': 'เช่น 5,000',
     'form.monthlySavings.unit': 'บาท',
     
-    'form.retireAge.label': 'จะเกษียณอายุเท่าไหร่?',
+    'form.retireAge.label': 'คิดว่าจะเกษียณตอนอายุเท่าไหร่?',
     'form.retireAge.placeholder': 'เช่น 60',
+    'form.retireAge.unit': 'ปี',
     
-    'form.monthlyExpense.label': 'ต้องการใช้เงินเกษียณเดือนละกี่บาท?',
+    'form.monthlyExpense.label': 'จะใช้เงินเกษียณเดือนละเท่าไหร่?',
     'form.monthlyExpense.placeholder': 'เช่น 20,000',
     'form.monthlyExpense.unit': 'บาท',
     
-    'form.lifeExpectancy.label': 'คาดว่าจะมีชีวิตถึงเมื่อไหร่?',
+    'form.lifeExpectancy.label': 'คิดว่าจะมีชีวิตอยู่ถึงเมื่อไหร่?',
     'form.lifeExpectancy.placeholder': 'เช่น 80',
+    'form.lifeExpectancy.unit': 'ปี',
 
     'form.whoAreYou': 'เธอคือใคร?',
-    'form.yourName': 'ชื่อของคุณ',
-    'form.namePlaceholder': 'เช่น สมชาย',
+    'form.yourName': 'ชื่อของเธอละ?',
+    'form.namePlaceholder': 'เช่น จิณณวัฒน์',
     'form.selectAvatar': 'เลือกอวตาร',
     'form.uploadAvatar': 'อัปโหลดรูปภาพ',
     
