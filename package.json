@@ -14,7 +14,8 @@
     "react-dom": "^18",
     "lucide-react": "^0.294.0",
     "framer-motion": "^10.16.0",
-    "react-qr-code": "^2.0.12"
+    "react-qr-code": "^2.0.12",
+    "html2canvas": "^1.4.1"
   },
   "devDependencies": {
     "@types/node": "^20",
