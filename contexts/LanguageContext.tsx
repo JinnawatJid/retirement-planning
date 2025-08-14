@@ -7,7 +7,7 @@ type Language = 'th' | 'en';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 const translations = {
@@ -62,6 +62,8 @@ const translations = {
     
     // Results
     'results.title': 'ผลการคำนวณแผนเกษียณ',
+    'results.planFor': 'ฉันคือ',
+    'results.summary': '{{name}}',
     'results.workPeriod': 'เราทำงานทั้งสิ้น',
     'results.retirePeriod': 'ใช้ชีวิตหลังเกษียณอีก',
     'results.years': 'ปี',
@@ -147,6 +149,8 @@ const translations = {
     
     // Results
     'results.title': 'Retirement Planning Results',
+    'results.planFor': 'Retirement Plan for {{name}}',
+    'results.summary': 'Summary of your retirement planning calculations',
     'results.workPeriod': 'Total working period',
     'results.retirePeriod': 'Life after retirement',
     'results.years': 'years',
@@ -203,8 +207,16 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('language', lang);
   };
 
-  const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations[typeof language]] || key;
+  const t = (key: string, params?: Record<string, string | number>): string => {
+    let translation = translations[language][key as keyof typeof translations[typeof language]] || key;
+    
+    if (params) {
+      Object.entries(params).forEach(([paramKey, value]) => {
+        translation = translation.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(value));
+      });
+    }
+    
+    return translation;
   };
 
   return (

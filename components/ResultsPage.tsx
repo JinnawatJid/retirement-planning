@@ -6,6 +6,8 @@ import { Share2, Download, ArrowLeft } from 'lucide-react';
 import html2canvas from 'html2canvas';
 
 interface FormData {
+  name: string;
+  avatar: string;
   startAge: number;
   salary: number;
   monthlySavings: number;
@@ -101,6 +103,20 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
       </div>
 
       <div ref={resultsRef} className="container mx-auto px-4 py-8">
+        {/* User Avatar Card */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-8">
+          <div className="flex items-center">
+            <img src={data.avatar} alt={data.name} className="w-24 h-24 rounded-full mr-6" />
+            <div>
+              <h2 className="text-lg text-gray-900 dark:text-white">
+                {t('results.planFor')}
+              </h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {t('results.summary', { name: data.name })}
+              </h2>
+            </div>
+          </div>
+        </div>
         {/* Main Results Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Left Side - Working Period */}
