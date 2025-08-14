@@ -61,7 +61,7 @@ const translations = {
     'form.uploadAvatar': 'อัปโหลดรูปภาพ',
     
     // Results
-    'results.title': 'ผลการคำนวณแผนเกษียณ',
+    'results.title': 'ผลลัพธ์',
     'results.planFor': 'ฉันคือ',
     'results.summary': '{{name}}',
     'results.workPeriod': 'เราทำงานทั้งสิ้น',
