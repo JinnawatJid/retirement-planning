@@ -3,8 +3,11 @@
 import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ChevronLeft, ChevronRight, Calculator } from 'lucide-react';
+import AvatarStep from './AvatarStep';
 
 interface FormData {
+  name: string;
+  avatar: string;
   startAge: number;
   salary: number;
   monthlySavings: number;
@@ -22,6 +25,8 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
   const { t, language } = useLanguage();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
+    name: '',
+    avatar: '',
     startAge: 22,
     salary: language === 'th' ? 30000 : 1000,
     monthlySavings: language === 'th' ? 5000 : 200,
@@ -30,9 +35,9 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
     lifeExpectancy: 80,
   });
 
-  const totalSteps = 6;
+  const totalSteps = 7;
 
-  const updateField = (field: keyof FormData, value: number) => {
+  const updateField = (field: keyof FormData, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -58,6 +63,14 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
     switch (currentStep) {
       case 1:
         return (
+          <AvatarStep
+            name={formData.name}
+            avatar={formData.avatar}
+            updateField={updateField}
+          />
+        );
+      case 2:
+        return (
           <div className="space-y-4">
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
               {t('form.startAge.label')}
@@ -73,7 +86,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             />
           </div>
         );
-      case 2:
+      case 3:
         return (
           <div className="space-y-4">
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
@@ -94,7 +107,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             </div>
           </div>
         );
-      case 3:
+      case 4:
         return (
           <div className="space-y-4">
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
@@ -115,7 +128,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             </div>
           </div>
         );
-      case 4:
+      case 5:
         return (
           <div className="space-y-4">
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
@@ -132,7 +145,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             />
           </div>
         );
-      case 5:
+      case 6:
         return (
           <div className="space-y-4">
             <label className="block text-lg font-medium text-gray-900 dark:text-white">
@@ -153,7 +166,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
             </div>
           </div>
         );
-      case 6:
+      case 7:
         return (
           <div className="space-y-4">
             <label className="block text-lg font-medium text-gray-900 dark:text-white">

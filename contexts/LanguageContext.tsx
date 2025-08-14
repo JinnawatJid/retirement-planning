@@ -50,6 +50,12 @@ const translations = {
     
     'form.lifeExpectancy.label': 'คาดว่าจะมีชีวิตถึงเมื่อไหร่?',
     'form.lifeExpectancy.placeholder': 'เช่น 80',
+
+    'form.whoAreYou': 'เธอคือใคร?',
+    'form.yourName': 'ชื่อของคุณ',
+    'form.namePlaceholder': 'เช่น สมชาย',
+    'form.selectAvatar': 'เลือกอวตาร',
+    'form.uploadAvatar': 'อัปโหลดรูปภาพ',
     
     // Results
     'results.title': 'ผลการคำนวณแผนเกษียณ',
@@ -129,6 +135,12 @@ const translations = {
     
     'form.lifeExpectancy.label': 'What is your expected lifespan?',
     'form.lifeExpectancy.placeholder': 'e.g. 80',
+
+    'form.whoAreYou': 'Who are you?',
+    'form.yourName': 'Your Name',
+    'form.namePlaceholder': 'e.g. John Doe',
+    'form.selectAvatar': 'Select Avatar',
+    'form.uploadAvatar': 'Upload Image',
     
     // Results
     'results.title': 'Retirement Planning Results',
