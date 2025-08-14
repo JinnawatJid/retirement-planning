@@ -7,7 +7,7 @@ import { Pencil } from 'lucide-react';
 interface AvatarStepProps {
   name: string;
   avatar: string;
-  updateField: (field: string, value: string) => void;
+    updateField: (field: 'name' | 'avatar', value: string) => void;
 }
 
 const AVATARS = [
