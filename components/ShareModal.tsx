@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Copy, Facebook, Instagram, Link, X } from 'lucide-react';
+import { Copy, Facebook, Link, X } from 'lucide-react';
 
 interface ShareModalProps {
   isOpen: boolean;
@@ -50,18 +50,12 @@ export default function ShareModal({ isOpen, onClose, data }: ShareModalProps) {
     window.open(url, '_blank', 'width=600,height=400');
   };
 
-  const shareToInstagram = () => {
-    // For Instagram Stories, we'll create a shareable image URL
-    const text = language === 'th' 
-      ? 'วางแผนเกษียณของคุณที่ ' + window.location.origin
-      : 'Plan your retirement at ' + window.location.origin;
-    
-    // Instagram doesn't support direct sharing, so we'll copy the text and URL
-    const shareText = `${text}\n\n${shareUrl}`;
-    navigator.clipboard.writeText(shareText);
-    alert(language === 'th' 
-      ? 'ข้อความและลิงก์ได้ถูกคัดลอกแล้ว! ไปที่ Instagram และแปะในสตอรี่ของคุณ'
-      : 'Text and link copied! Go to Instagram and paste in your story');
+  const shareToLine = () => {
+    const text = language === 'th'
+      ? 'ฉันได้วางแผนเกษียณแล้ว! มาดูผลการคำนวณของฉัน'
+      : 'I just planned my retirement! Check out my calculation results';
+    const url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'width=600,height=600');
   };
 
   return (
@@ -102,13 +96,13 @@ export default function ShareModal({ isOpen, onClose, data }: ShareModalProps) {
             <span className="font-medium">{t('share.facebook')}</span>
           </button>
 
-          {/* Instagram Share */}
+          {/* Line Share */}
           <button
-            onClick={shareToInstagram}
-            className="w-full flex items-center justify-center space-x-3 p-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-lg transition-colors"
+            onClick={shareToLine}
+            className="w-full flex items-center justify-center space-x-3 p-4 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
           >
-            <Instagram className="w-5 h-5" />
-            <span className="font-medium">{t('share.instagram')}</span>
+            <Link className="w-5 h-5" />
+            <span className="font-medium">{t('share.line')}</span>
           </button>
 
           {/* Share URL Display */}
