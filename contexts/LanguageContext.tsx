@@ -14,13 +14,13 @@ const translations = {
   th: {
     // Landing Page
     'landing.title': 'วางแผนเกษียณ',
-    'landing.subtitle': 'เริ่มวางแผนเกษียณเพื่ออนาคตที่มั่นคงของคุณ',
+    'landing.subtitle': 'วางแผนเกษียณเพื่ออนาคตที่มั่นคงของคุณ',
     'landing.why.title': 'ทำไมต้องวางแผนเกษียณ?',
     'landing.why.point1': 'เงินเฟ้อทำให้ค่าครองชีพสูงขึ้นเรื่อยๆ',
     'landing.why.point2': 'เงินเดือนหลังเกษียณอาจไม่เพียงพอ',
     'landing.why.point3': 'ออมเงินตั้งแต่วันนี้อนาคตมั่นคง',
     'landing.why.point4': 'ลงทุนระยะยาวสร้างผลตอบแทนที่ดี',
-    'landing.cta': 'เริ่มคำนวณแผนเกษียณ',
+    'landing.cta': 'วางแผนเกษียณกัน!',
     
     // Form
     'form.title': 'แนะนำตัวหน่อยสิ!',
