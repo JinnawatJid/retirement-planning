@@ -79,7 +79,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
               <input
                 type="number"
                 value={formData.startAge}
-                onChange={(e) => updateField('startAge', parseInt(e.target.value) || 0)}
+                onChange={(e) => updateField('startAge', parseInt(e.target.value))}
                 placeholder={t('form.startAge.placeholder')}
                 className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
                 min="15"
@@ -101,7 +101,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
               <input
                 type="number"
                 value={formData.salary}
-                onChange={(e) => updateField('salary', parseInt(e.target.value) || 0)}
+                onChange={(e) => updateField('salary', parseInt(e.target.value))}
                 placeholder={t('form.salary.placeholder')}
                 className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
                 min="0"
@@ -122,7 +122,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
               <input
                 type="number"
                 value={formData.monthlySavings}
-                onChange={(e) => updateField('monthlySavings', parseInt(e.target.value) || 0)}
+                onChange={(e) => updateField('monthlySavings', parseInt(e.target.value))}
                 placeholder={t('form.monthlySavings.placeholder')}
                 className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
                 min="0"
@@ -143,7 +143,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
               <input
                 type="number"
                 value={formData.retireAge}
-                onChange={(e) => updateField('retireAge', parseInt(e.target.value) || 0)}
+                onChange={(e) => updateField('retireAge', parseInt(e.target.value))}
                 placeholder={t('form.retireAge.placeholder')}
                 className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
                 min="50"
@@ -165,7 +165,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
               <input
                 type="number"
                 value={formData.monthlyExpense}
-                onChange={(e) => updateField('monthlyExpense', parseInt(e.target.value) || 0)}
+                onChange={(e) => updateField('monthlyExpense', parseInt(e.target.value))}
                 placeholder={t('form.monthlyExpense.placeholder')}
                 className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
                 min="0"
@@ -186,7 +186,7 @@ export default function RetirementForm({ onClose, onCalculate }: RetirementFormP
               <input
                 type="number"
                 value={formData.lifeExpectancy}
-                onChange={(e) => updateField('lifeExpectancy', parseInt(e.target.value) || 0)}
+                onChange={(e) => updateField('lifeExpectancy', parseInt(e.target.value))}
                 placeholder={t('form.lifeExpectancy.placeholder')}
                 className="w-full px-4 py-3 pr-16 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white number-input"
                 min="65"

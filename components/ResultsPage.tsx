@@ -171,9 +171,9 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
               </div>
             </div>
             <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
-              <span>{data.startAge} {t('common.age')}</span>
-              <span>{data.retireAge} {t('common.age')}</span>
-              <span>{data.lifeExpectancy} {t('common.age')}</span>
+              <span>{t('common.age')} {data.startAge} {t('common.year')}</span>
+              <span>{t('common.age')} {data.retireAge} {t('common.year')}</span>
+              <span>{t('common.age')} {data.lifeExpectancy} {t('common.year')}</span>
             </div>
           </div>
         </div>
@@ -237,7 +237,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
                     </h4>
                     <p className="text-green-700 dark:text-green-300">
                       {language === 'th' 
-                        ? `คุณจะมีเงินเหลือ ${formatNumber(totalSavings - totalExpenses)} ${currency} หลังเกษียณ`
+                        ? `ฉันจะมีเงินเหลืออีก ${formatNumber(totalSavings - totalExpenses)} ${currency} หลังเกษียณ`
                         : `You will have ${formatNumber(totalSavings - totalExpenses)} ${currency} remaining after retirement`
                       }
                     </p>
@@ -254,7 +254,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
                     </h4>
                     <p className="text-red-700 dark:text-red-300">
                       {language === 'th' 
-                        ? `คุณขาดเงิน ${formatNumber(totalExpenses - totalSavings)} ${currency} สำหรับการเกษียณ`
+                        ? `ฉันขาดเงินอีก ${formatNumber(totalExpenses - totalSavings)} ${currency} สำหรับการเกษียณ`
                         : `You are short ${formatNumber(totalExpenses - totalSavings)} ${currency} for retirement`
                       }
                     </p>
