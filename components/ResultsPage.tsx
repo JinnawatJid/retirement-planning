@@ -106,7 +106,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
         {/* User Avatar Card */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-8">
           <div className="flex items-center">
-            <img src={data.avatar} alt={data.name} className="w-24 h-24 rounded-full mr-6" />
+            <img src={data.avatar} alt={data.name} className="w-24 h-24 rounded-full mr-6 object-cover" />
             <div>
               <h2 className="text-lg text-gray-900 dark:text-white">
                 {t('results.planFor')}
