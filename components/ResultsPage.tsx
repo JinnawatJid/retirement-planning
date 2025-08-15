@@ -233,7 +233,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
                   <span className="text-2xl mr-3">✅</span>
                   <div>
                     <h4 className="font-bold text-green-800 dark:text-green-400">
-                      {language === 'th' ? 'แผนการออมเพียงพอ!' : 'Your savings plan is sufficient!'}
+                      {language === 'th' ? 'แผนการออมของฉันเพียงพอ!' : 'Your savings plan is sufficient!'}
                     </h4>
                     <p className="text-green-700 dark:text-green-300">
                       {language === 'th' 
@@ -250,7 +250,7 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
                   <span className="text-2xl mr-3">⚠️</span>
                   <div>
                     <h4 className="font-bold text-red-800 dark:text-red-400">
-                      {language === 'th' ? 'แผนการออมไม่เพียงพอ' : 'Your savings plan is insufficient'}
+                      {language === 'th' ? 'แผนการออมของฉันไม่เพียงพอ' : 'Your savings plan is insufficient'}
                     </h4>
                     <p className="text-red-700 dark:text-red-300">
                       {language === 'th' 
