@@ -108,10 +108,10 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
           <div className="flex items-center">
             <img src={data.avatar} alt={data.name} className="w-24 h-24 rounded-full mr-6 object-cover" />
             <div>
-              <h2 className="text-lg text-gray-900 dark:text-white">
+              <h2 className="text-xl text-gray-900 dark:text-white">
                 {t('results.planFor')}
               </h2>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                 {t('results.summary', { name: data.name })}
               </h2>
             </div>
