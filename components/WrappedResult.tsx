@@ -41,16 +41,10 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
   const balance = totalSavings - totalExpenses;
 
   return (
-    <div className={`${styles.wrappedContainer} wrapped-bg`}>
-      <button onClick={onShare} className={styles.shareButton}>
-        <Share2 size={24} />
-      </button>
-      <button onClick={onClose} className={styles.closeButton}>
-        <X size={24} />
-      </button>
-      <div className={styles.content}>
-        <header className={`${styles.header} wrapped-card wrapped-card-1`}>
-          <img src={data.avatar} alt={data.name} className={styles.avatar} />
+      <div className={`${styles.wrappedContainer} wrapped-bg`}>
+        <div className={styles.content}>
+          <header className={`${styles.header} wrapped-card wrapped-card-1`}>
+            <img src={data.avatar} alt={data.name} className={styles.avatar} />
           <p className="wrapped-subtitle">{t('results.planFor')}</p>
           <h1 className="wrapped-title">{t('results.summary', { name: data.name })}</h1>
         </header>
@@ -111,6 +105,12 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
             </p>
         </div>
       </div>
+      <button onClick={onShare} className={styles.shareButton}>
+        <Share2 size={24} />
+      </button>
+      <button onClick={onClose} className={styles.closeButton}>
+        <X size={24} />
+      </button>
     </div>
   );
 };
