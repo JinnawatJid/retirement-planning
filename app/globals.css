@@ -121,3 +121,46 @@ body {
 .number-input[type=number] {
   -moz-appearance: textfield;
 }
+
+/* Spotify Wrapped Styles */
+.wrapped-bg {
+  background: linear-gradient(135deg, #1d2b64, #f8cdda);
+}
+
+.wrapped-card {
+  @apply rounded-2xl p-6 shadow-lg text-white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slide-up 0.5s ease-out forwards;
+}
+
+@keyframes slide-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wrapped-card-1 { animation-delay: 0.2s; }
+.wrapped-card-2 { animation-delay: 0.4s; }
+.wrapped-card-3 { animation-delay: 0.6s; }
+.wrapped-card-4 { animation-delay: 0.8s; }
+.wrapped-card-5 { animation-delay: 1.0s; }
+.wrapped-card-6 { animation-delay: 1.2s; }
+
+.wrapped-title {
+  @apply text-4xl md:text-5xl font-black tracking-tighter;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.wrapped-subtitle {
+  @apply text-lg md:text-xl font-light opacity-80;
+}
+
+.wrapped-highlight {
+  @apply text-5xl md:text-7xl font-bold text-white;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+}
