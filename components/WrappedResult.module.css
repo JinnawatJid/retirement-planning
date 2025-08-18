@@ -21,7 +21,6 @@
 
 .header {
     text-align: center;
-    margin-bottom: 2rem;
 }
 
 .avatar {
@@ -50,6 +49,11 @@
     font-size: 1rem;
     opacity: 0.8;
     margin-top: 0.5rem;
+}
+
+.statDesc {
+    font-size: 1rem;
+    opacity: 0.8;
 }
 
 .timeline {

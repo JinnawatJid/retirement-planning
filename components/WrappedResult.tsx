@@ -27,7 +27,9 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
   };
 
   const workingYears = data.retireAge - data.startAge;
+  const workingMonths = workingYears * 12;
   const retirementYears = data.lifeExpectancy - data.retireAge;
+  const retirementMonths = retirementYears * 12;
   const totalSavings = data.monthlySavings * (workingYears * 12);
   const totalExpenses = data.monthlyExpense * (retirementYears * 12);
   const currency = language === 'th' ? 'บาท' : 'USD';
@@ -45,18 +47,22 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
       <div className={styles.content}>
         <header className={`${styles.header} wrapped-card wrapped-card-1`}>
           <img src={data.avatar} alt={data.name} className={styles.avatar} />
-          <h1 className="wrapped-title">{t('results.summary', { name: data.name })}</h1>
           <p className="wrapped-subtitle">{t('results.planFor')}</p>
+          <h1 className="wrapped-title">{t('results.summary', { name: data.name })}</h1>
         </header>
 
         <div className={`${styles.grid}`}>
             <div className={`wrapped-card wrapped-card-2 ${styles.statCard}`}>
-                <div className={styles.statValue}>{workingYears}</div>
                 <div className={styles.statLabel}>{t('results.workPeriod')}</div>
+                <div className={styles.statValue}>{workingYears} {t('results.years')}</div>
+                <div className={styles.statDesc}>{t('results.or')} {formatNumber(workingMonths)} {t('results.months')}
+                </div>
             </div>
             <div className={`wrapped-card wrapped-card-3 ${styles.statCard}`}>
-                <div className={styles.statValue}>{retirementYears}</div>
                 <div className={styles.statLabel}>{t('results.retirePeriod')}</div>
+                <div className={styles.statValue}>{retirementYears} {t('results.years')}</div>
+                <div className={styles.statDesc}>{t('results.or')} {formatNumber(retirementMonths)} {t('results.months')}
+                </div>
             </div>
         </div>
 
@@ -75,16 +81,14 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
         <div className="wrapped-card wrapped-card-5">
             <h2 className="text-xl font-bold text-center mb-4">{t('results.totalSavings')}</h2>
             <div className="text-center">
-                <div className="wrapped-highlight">{formatNumber(totalSavings)}</div>
-                <div className="opacity-80">{currency}</div>
+                <div className="wrapped-highlight">{formatNumber(totalSavings)} {currency}</div>
             </div>
         </div>
 
         <div className="wrapped-card wrapped-card-6">
             <h2 className="text-xl font-bold text-center mb-4">{t('results.totalExpense')}</h2>
             <div className="text-center">
-                <div className="wrapped-highlight">{formatNumber(totalExpenses)}</div>
-                <div className="opacity-80">{currency}</div>
+                <div className="wrapped-highlight">{formatNumber(totalExpenses)} {currency}</div>
             </div>
         </div>
 
@@ -97,8 +101,8 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
             </h2>
             <p className="text-lg">
                 {isSufficient
-                    ? (language === 'th' ? `คุณจะมีเงินเหลือ ${formatNumber(balance)} ${currency}` : `You'll have a surplus of ${formatNumber(balance)} ${currency}`)
-                    : (language === 'th' ? `คุณขาดเงิน ${formatNumber(Math.abs(balance))} ${currency}` : `You're short by ${formatNumber(Math.abs(balance))} ${currency}`)
+                    ? (language === 'th' ? `ฉันจะมีเงินเหลืออีก ${formatNumber(balance)} ${currency}` : `You'll have a surplus of ${formatNumber(balance)} ${currency}`)
+                    : (language === 'th' ? `ฉันขาดเงินอีก ${formatNumber(Math.abs(balance))} ${currency}` : `You're short by ${formatNumber(Math.abs(balance))} ${currency}`)
                 }
             </p>
         </div>
