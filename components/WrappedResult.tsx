@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './WrappedResult.module.css';
-import { X } from 'lucide-react';
+import { X, MoreHorizontal, Pencil } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -17,10 +17,21 @@ interface FormData {
 interface WrappedResultProps {
   data: FormData;
   onClose: () => void;
+  onShare: () => void;
 }
 
-const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
+import ThemeModal from './ThemeModal';
+
+const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare }) => {
   const { t, language } = useLanguage();
+  const [activeTheme, setActiveTheme] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+
+  const handleThemeSelect = (theme: string) => {
+    setActiveTheme(theme);
+    setIsThemeModalOpen(false);
+  };
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat(language === 'th' ? 'th-TH' : 'en-US').format(num);
@@ -39,11 +50,30 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
   const isSufficient = totalSavings >= totalExpenses;
   const balance = totalSavings - totalExpenses;
 
+  useEffect(() => {
+    // Set default theme based on results
+    setActiveTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
+  }, [isSufficient]);
+
   return (
-    <div className={`${styles.wrappedContainer} wrapped-bg`}>
-      <button onClick={onClose} className={styles.closeButton}>
-        <X size={24} />
-      </button>
+    <div className={`${styles.wrappedContainer} ${activeTheme}`}>
+      <div className={styles.menuContainer}>
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.menuButton}>
+          <MoreHorizontal size={24} />
+        </button>
+        {isMenuOpen && (
+          <div className={styles.dropdownMenu}>
+            <button onClick={() => setIsThemeModalOpen(true)} className={styles.dropdownItem}>
+              <Pencil size={18} className="mr-2" />
+              Edit Theme
+            </button>
+            <button onClick={onClose} className={styles.dropdownItem}>
+              <X size={18} className="mr-2" />
+              Close
+            </button>
+          </div>
+        )}
+      </div>
       <div className={styles.content}>
         <header className={`${styles.header} wrapped-card wrapped-card-1`}>
           <img src={data.avatar} alt={data.name} className={styles.avatar} />
@@ -53,12 +83,14 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
 
         <div className={`${styles.grid}`}>
             <div className={`wrapped-card wrapped-card-2 ${styles.statCard}`}>
+                <div className="text-4xl mb-2">💼</div>
                 <div className={styles.statLabel}>{t('results.workPeriod')}</div>
                 <div className={styles.statValue}>{workingYears} {t('results.years')}</div>
                 <div className={styles.statDesc}>{t('results.or')} {formatNumber(workingMonths)} {t('results.months')}
                 </div>
             </div>
             <div className={`wrapped-card wrapped-card-3 ${styles.statCard}`}>
+                <div className="text-4xl mb-2">🏖️</div>
                 <div className={styles.statLabel}>{t('results.retirePeriod')}</div>
                 <div className={styles.statValue}>{retirementYears} {t('results.years')}</div>
                 <div className={styles.statDesc}>{t('results.or')} {formatNumber(retirementMonths)} {t('results.months')}
@@ -78,18 +110,16 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
             </div>
         </div>
 
-        <div className="wrapped-card wrapped-card-5">
-            <h2 className="text-xl font-bold text-center mb-4">{t('results.totalSavings')}</h2>
-            <div className="text-center">
-                <div className="wrapped-highlight">{formatNumber(totalSavings)} {currency}</div>
-            </div>
+        <div className="wrapped-card wrapped-card-5 text-center">
+            <div className="text-4xl mb-2">💰</div>
+            <h2 className="text-xl font-bold mb-2">{t('results.totalSavings')}</h2>
+            <div className="wrapped-highlight">{formatNumber(totalSavings)} {currency}</div>
         </div>
 
-        <div className="wrapped-card wrapped-card-6">
-            <h2 className="text-xl font-bold text-center mb-4">{t('results.totalExpense')}</h2>
-            <div className="text-center">
-                <div className="wrapped-highlight">{formatNumber(totalExpenses)} {currency}</div>
-            </div>
+        <div className="wrapped-card wrapped-card-6 text-center">
+            <div className="text-4xl mb-2">💸</div>
+            <h2 className="text-xl font-bold mb-2">{t('results.totalExpense')}</h2>
+            <div className="wrapped-highlight">{formatNumber(totalExpenses)} {currency}</div>
         </div>
 
         <div className={`wrapped-card wrapped-card-7 ${styles.finalVerdict}`}>
@@ -107,6 +137,11 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
             </p>
         </div>
       </div>
+      <ThemeModal
+        isOpen={isThemeModalOpen}
+        onClose={() => setIsThemeModalOpen(false)}
+        onSelectTheme={handleThemeSelect}
+      />
     </div>
   );
 };
