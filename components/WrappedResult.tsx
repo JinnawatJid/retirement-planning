@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './WrappedResult.module.css';
-import { X, Share2 } from 'lucide-react';
+import { X, MoreHorizontal, Pencil } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -17,11 +17,20 @@ interface FormData {
 interface WrappedResultProps {
   data: FormData;
   onClose: () => void;
-  onShare: () => void;
 }
 
-const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare }) => {
+import ThemeModal from './ThemeModal';
+
+const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
   const { t, language } = useLanguage();
+  const [activeTheme, setActiveTheme] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+
+  const handleThemeSelect = (theme: string) => {
+    setActiveTheme(theme);
+    setIsThemeModalOpen(false);
+  };
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat(language === 'th' ? 'th-TH' : 'en-US').format(num);
@@ -40,11 +49,33 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
   const isSufficient = totalSavings >= totalExpenses;
   const balance = totalSavings - totalExpenses;
 
+  useEffect(() => {
+    // Set default theme based on results
+    setActiveTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
+  }, [isSufficient]);
+
   return (
-      <div className={`${styles.wrappedContainer} wrapped-bg`}>
-        <div className={styles.content}>
-          <header className={`${styles.header} wrapped-card wrapped-card-1`}>
-            <img src={data.avatar} alt={data.name} className={styles.avatar} />
+    <div className={`${styles.wrappedContainer} ${activeTheme}`}>
+      <div className={styles.menuContainer}>
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.menuButton}>
+          <MoreHorizontal size={24} />
+        </button>
+        {isMenuOpen && (
+          <div className={styles.dropdownMenu}>
+            <button onClick={() => setIsThemeModalOpen(true)} className={styles.dropdownItem}>
+              <Pencil size={18} className="mr-2" />
+              Edit Theme
+            </button>
+            <button onClick={onClose} className={styles.dropdownItem}>
+              <X size={18} className="mr-2" />
+              Close
+            </button>
+          </div>
+        )}
+      </div>
+      <div className={styles.content}>
+        <header className={`${styles.header} wrapped-card wrapped-card-1`}>
+          <img src={data.avatar} alt={data.name} className={styles.avatar} />
           <p className="wrapped-subtitle">{t('results.planFor')}</p>
           <h1 className="wrapped-title">{t('results.summary', { name: data.name })}</h1>
         </header>
@@ -72,9 +103,9 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
                 <div className={styles.timelineProgress} style={{ width: `${workingProgress}%` }}></div>
             </div>
             <div className="flex justify-between mt-2 text-xs">
-                <span>{t('common.age')} {data.startAge} {t('common.year')}</span>
-                <span>{t('common.age')} {data.retireAge} {t('common.year')}</span>
-                <span>{t('common.age')} {data.lifeExpectancy} {t('common.year')}</span>
+                <span>{t('common.age')} {data.startAge}</span>
+                <span>{t('common.age')} {data.retireAge}</span>
+                <span>{t('common.age')} {data.lifeExpectancy}</span>
             </div>
         </div>
 
@@ -105,12 +136,11 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
             </p>
         </div>
       </div>
-      <button onClick={onShare} className={styles.shareButton}>
-        <Share2 size={24} />
-      </button>
-      <button onClick={onClose} className={styles.closeButton}>
-        <X size={24} />
-      </button>
+      <ThemeModal
+        isOpen={isThemeModalOpen}
+        onClose={() => setIsThemeModalOpen(false)}
+        onSelectTheme={handleThemeSelect}
+      />
     </div>
   );
 };

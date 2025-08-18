@@ -52,7 +52,7 @@
 }
 
 .statDesc {
-    font-size: 0.8rem;
+    font-size: 1rem;
     opacity: 0.8;
 }
 
@@ -82,11 +82,14 @@
     padding: 2rem;
 }
 
-.closeButton {
+.menuContainer {
     position: absolute;
     top: 1rem;
     right: 1rem;
     z-index: 110;
+}
+
+.menuButton {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
@@ -100,28 +103,37 @@
     transition: background 0.2s;
 }
 
-.closeButton:hover {
+.menuButton:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.shareButton {
+.dropdownMenu {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    z-index: 110;
-    background: rgba(255, 255, 255, 0.1);
+    top: 50px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    padding: 0.5rem;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.dropdownItem {
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.9rem;
+    text-align: left;
+    width: 100%;
     transition: background 0.2s;
 }
 
-.shareButton:hover {
-    background: rgba(255, 255, 255, 0.2);
+.dropdownItem:hover {
+    background: rgba(255, 255, 255, 0.1);
 }

@@ -123,10 +123,6 @@ body {
 }
 
 /* Spotify Wrapped Styles */
-.wrapped-bg {
-  background: linear-gradient(135deg, #1d2b64, #f8cdda);
-}
-
 .wrapped-card {
   @apply rounded-2xl p-6 shadow-lg text-white;
   background: rgba(255, 255, 255, 0.1);
@@ -197,6 +193,26 @@ body {
 }
 
 .wrapped-highlight {
-  @apply text-4xl md:text-6xl font-bold text-white;
+  @apply text-5xl md:text-7xl font-bold text-white;
   text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+}
+
+/* Dynamic Theme Backgrounds */
+.theme-sunny-day {
+  background: linear-gradient(135deg, #ffc371, #ff5f6d);
+}
+.theme-starry-night {
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+}
+.theme-party {
+  background: linear-gradient(135deg, #ff00cc, #333399);
+}
+.theme-focused {
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+}
+.theme-retro-pop {
+  background: linear-gradient(135deg, #f953c6, #b91d73);
+}
+.theme-lofi {
+  background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
