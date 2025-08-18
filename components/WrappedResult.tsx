@@ -53,12 +53,14 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
 
         <div className={`${styles.grid}`}>
             <div className={`wrapped-card wrapped-card-2 ${styles.statCard}`}>
+                <div className="text-4xl mb-2">💼</div>
                 <div className={styles.statLabel}>{t('results.workPeriod')}</div>
                 <div className={styles.statValue}>{workingYears} {t('results.years')}</div>
                 <div className={styles.statDesc}>{t('results.or')} {formatNumber(workingMonths)} {t('results.months')}
                 </div>
             </div>
             <div className={`wrapped-card wrapped-card-3 ${styles.statCard}`}>
+                <div className="text-4xl mb-2">🏖️</div>
                 <div className={styles.statLabel}>{t('results.retirePeriod')}</div>
                 <div className={styles.statValue}>{retirementYears} {t('results.years')}</div>
                 <div className={styles.statDesc}>{t('results.or')} {formatNumber(retirementMonths)} {t('results.months')}
@@ -78,18 +80,16 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
             </div>
         </div>
 
-        <div className="wrapped-card wrapped-card-5">
-            <h2 className="text-xl font-bold text-center mb-4">{t('results.totalSavings')}</h2>
-            <div className="text-center">
-                <div className="wrapped-highlight">{formatNumber(totalSavings)} {currency}</div>
-            </div>
+        <div className="wrapped-card wrapped-card-5 text-center">
+            <div className="text-4xl mb-2">💰</div>
+            <h2 className="text-xl font-bold mb-2">{t('results.totalSavings')}</h2>
+            <div className="wrapped-highlight">{formatNumber(totalSavings)} {currency}</div>
         </div>
 
-        <div className="wrapped-card wrapped-card-6">
-            <h2 className="text-xl font-bold text-center mb-4">{t('results.totalExpense')}</h2>
-            <div className="text-center">
-                <div className="wrapped-highlight">{formatNumber(totalExpenses)} {currency}</div>
-            </div>
+        <div className="wrapped-card wrapped-card-6 text-center">
+            <div className="text-4xl mb-2">💸</div>
+            <h2 className="text-xl font-bold mb-2">{t('results.totalExpense')}</h2>
+            <div className="wrapped-highlight">{formatNumber(totalExpenses)} {currency}</div>
         </div>
 
         <div className={`wrapped-card wrapped-card-7 ${styles.finalVerdict}`}>
