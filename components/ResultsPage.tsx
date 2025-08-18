@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Share2, Download, ArrowLeft } from 'lucide-react';
+import { Share2, Download, ArrowLeft, BarChart2 } from 'lucide-react';
 import html2canvas from 'html2canvas';
+import WrappedResult from './WrappedResult';
 
 interface FormData {
   name: string;
@@ -24,6 +25,7 @@ interface ResultsPageProps {
 
 export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps) {
   const { t, language } = useLanguage();
+  const [viewMode, setViewMode] = useState('default');
 
   // Calculations
   const workingYears = data.retireAge - data.startAge;
@@ -39,16 +41,23 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
   };
 
   const resultsRef = useRef<HTMLDivElement>(null);
+  const wrappedResultsRef = useRef<HTMLDivElement>(null);
 
   const saveResults = async () => {
-    if (!resultsRef.current) return;
+    const elementToCapture = viewMode === 'wrapped'
+      ? wrappedResultsRef.current?.querySelector(`.${"wrapped-bg"}`)
+      : resultsRef.current;
 
-    const canvas = await html2canvas(resultsRef.current, {
+    if (!elementToCapture) return;
+
+    const canvas = await html2canvas(elementToCapture as HTMLElement, {
       useCORS: true,
       onclone: (document) => {
-        const adElement = document.querySelector('#ad-space');
-        if (adElement) {
-          (adElement as HTMLElement).style.display = 'none';
+        if (viewMode === 'default') {
+          const adElement = document.querySelector('#ad-space');
+          if (adElement) {
+            (adElement as HTMLElement).style.display = 'none';
+          }
         }
       },
     });
@@ -65,6 +74,14 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
   // Progress bar calculation (working period vs total life span considered)
   const totalLifeSpan = data.lifeExpectancy - data.startAge;
   const workingProgress = (workingYears / totalLifeSpan) * 100;
+
+  if (viewMode === 'wrapped') {
+    return (
+      <div ref={wrappedResultsRef}>
+        <WrappedResult data={data} onClose={() => setViewMode('default')} />
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-white dark:bg-gray-900 overflow-y-auto">
@@ -83,6 +100,13 @@ export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps
               {t('results.title')}
             </h1>
             <div className="flex space-x-2">
+              <button
+                onClick={() => setViewMode('wrapped')}
+                className="flex items-center px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg"
+              >
+                <BarChart2 className="w-4 h-4 mr-2" />
+                Wrapped
+              </button>
               <button
                 onClick={saveResults}
                 className="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"

@@ -1,0 +1,110 @@
+import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import styles from './WrappedResult.module.css';
+import { X } from 'lucide-react';
+
+interface FormData {
+  name: string;
+  avatar: string;
+  startAge: number;
+  salary: number;
+  monthlySavings: number;
+  retireAge: number;
+  monthlyExpense: number;
+  lifeExpectancy: number;
+}
+
+interface WrappedResultProps {
+  data: FormData;
+  onClose: () => void;
+}
+
+const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
+  const { t, language } = useLanguage();
+
+  const formatNumber = (num: number) => {
+    return new Intl.NumberFormat(language === 'th' ? 'th-TH' : 'en-US').format(num);
+  };
+
+  const workingYears = data.retireAge - data.startAge;
+  const retirementYears = data.lifeExpectancy - data.retireAge;
+  const totalSavings = data.monthlySavings * (workingYears * 12);
+  const totalExpenses = data.monthlyExpense * (retirementYears * 12);
+  const currency = language === 'th' ? 'บาท' : 'USD';
+  const lifeSpan = data.lifeExpectancy - data.startAge;
+  const workingProgress = (workingYears / lifeSpan) * 100;
+
+  const isSufficient = totalSavings >= totalExpenses;
+  const balance = totalSavings - totalExpenses;
+
+  return (
+    <div className={`${styles.wrappedContainer} wrapped-bg`}>
+      <button onClick={onClose} className={styles.closeButton}>
+        <X size={24} />
+      </button>
+      <div className={styles.content}>
+        <header className={`${styles.header} wrapped-card wrapped-card-1`}>
+          <img src={data.avatar} alt={data.name} className={styles.avatar} />
+          <h1 className="wrapped-title">{t('results.summary', { name: data.name })}</h1>
+          <p className="wrapped-subtitle">{t('results.planFor')}</p>
+        </header>
+
+        <div className={`${styles.grid}`}>
+            <div className={`wrapped-card wrapped-card-2 ${styles.statCard}`}>
+                <div className={styles.statValue}>{workingYears}</div>
+                <div className={styles.statLabel}>{t('results.workPeriod')}</div>
+            </div>
+            <div className={`wrapped-card wrapped-card-3 ${styles.statCard}`}>
+                <div className={styles.statValue}>{retirementYears}</div>
+                <div className={styles.statLabel}>{t('results.retirePeriod')}</div>
+            </div>
+        </div>
+
+        <div className="wrapped-card wrapped-card-4">
+            <h2 className="text-xl font-bold text-center mb-4">{t('Life Timeline')}</h2>
+            <div className={styles.timeline}>
+                <div className={styles.timelineProgress} style={{ width: `${workingProgress}%` }}></div>
+            </div>
+            <div className="flex justify-between mt-2 text-xs">
+                <span>{t('common.age')} {data.startAge}</span>
+                <span>{t('common.age')} {data.retireAge}</span>
+                <span>{t('common.age')} {data.lifeExpectancy}</span>
+            </div>
+        </div>
+
+        <div className="wrapped-card wrapped-card-5">
+            <h2 className="text-xl font-bold text-center mb-4">{t('results.totalSavings')}</h2>
+            <div className="text-center">
+                <div className="wrapped-highlight">{formatNumber(totalSavings)}</div>
+                <div className="opacity-80">{currency}</div>
+            </div>
+        </div>
+
+        <div className="wrapped-card wrapped-card-6">
+            <h2 className="text-xl font-bold text-center mb-4">{t('results.totalExpense')}</h2>
+            <div className="text-center">
+                <div className="wrapped-highlight">{formatNumber(totalExpenses)}</div>
+                <div className="opacity-80">{currency}</div>
+            </div>
+        </div>
+
+        <div className={`wrapped-card wrapped-card-7 ${styles.finalVerdict}`}>
+            <h2 className="text-2xl font-bold mb-2">
+                {isSufficient
+                    ? '✅ ' + (language === 'th' ? 'เพียงพอ!' : 'Sufficient!')
+                    : '⚠️ ' + (language === 'th' ? 'ไม่เพียงพอ' : 'Insufficient')
+                }
+            </h2>
+            <p className="text-lg">
+                {isSufficient
+                    ? (language === 'th' ? `คุณจะมีเงินเหลือ ${formatNumber(balance)} ${currency}` : `You'll have a surplus of ${formatNumber(balance)} ${currency}`)
+                    : (language === 'th' ? `คุณขาดเงิน ${formatNumber(Math.abs(balance))} ${currency}` : `You're short by ${formatNumber(Math.abs(balance))} ${currency}`)
+                }
+            </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WrappedResult;
