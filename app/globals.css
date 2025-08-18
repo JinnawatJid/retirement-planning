@@ -161,6 +161,6 @@ body {
 }
 
 .wrapped-highlight {
-  @apply text-5xl md:text-7xl font-bold text-white;
+  @apply text-4xl md:text-6xl font-bold text-white;
   text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
 }
