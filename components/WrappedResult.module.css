@@ -86,6 +86,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 110;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
@@ -100,5 +101,27 @@
 }
 
 .closeButton:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.shareButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 110;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.shareButton:hover {
     background: rgba(255, 255, 255, 0.2);
 }

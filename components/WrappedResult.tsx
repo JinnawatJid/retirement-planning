@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './WrappedResult.module.css';
-import { X } from 'lucide-react';
+import { X, Share2 } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -17,9 +17,10 @@ interface FormData {
 interface WrappedResultProps {
   data: FormData;
   onClose: () => void;
+  onShare: () => void;
 }
 
-const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
+const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare }) => {
   const { t, language } = useLanguage();
 
   const formatNumber = (num: number) => {
@@ -41,6 +42,9 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
 
   return (
     <div className={`${styles.wrappedContainer} wrapped-bg`}>
+      <button onClick={onShare} className={styles.shareButton}>
+        <Share2 size={24} />
+      </button>
       <button onClick={onClose} className={styles.closeButton}>
         <X size={24} />
       </button>
