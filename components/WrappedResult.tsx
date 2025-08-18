@@ -70,9 +70,9 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
                 <div className={styles.timelineProgress} style={{ width: `${workingProgress}%` }}></div>
             </div>
             <div className="flex justify-between mt-2 text-xs">
-                <span>{t('common.age')} {data.startAge}</span>
-                <span>{t('common.age')} {data.retireAge}</span>
-                <span>{t('common.age')} {data.lifeExpectancy}</span>
+                <span>{t('common.age')} {data.startAge} {t('common.year')}</span>
+                <span>{t('common.age')} {data.retireAge} {t('common.year')}</span>
+                <span>{t('common.age')} {data.lifeExpectancy} {t('common.year')}</span>
             </div>
         </div>
 
