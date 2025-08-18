@@ -64,8 +64,8 @@ const translations = {
     'results.title': 'ผลลัพธ์',
     'results.planFor': 'ฉันคือ',
     'results.summary': '{{name}}',
-    'results.workPeriod': 'ฉันจะทำงานทั้งสิ้น',
-    'results.retirePeriod': 'ใช้ชีวิตหลังเกษียณอีก',
+    'results.workPeriod': 'ฉันจะทำงาน',
+    'results.retirePeriod': 'ใช้ชีวิตเกษียณ',
     'results.years': 'ปี',
     'results.months': 'เดือน',
     'results.or': 'หรือ',
@@ -78,7 +78,7 @@ const translations = {
     'results.share': 'แชร์',
     
     // Share Modal
-    'share.title': 'แชร์ผลการคำนวณ',
+    'share.title': 'แชร์',
     'share.link': 'คัดลอกลิงก์',
     'share.facebook': 'แชร์ใน Facebook',
     'share.line': 'แชร์ใน Line',
