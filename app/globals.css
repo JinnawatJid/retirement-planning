@@ -123,56 +123,25 @@ body {
 }
 
 /* Spotify Wrapped Styles */
+.wrapped-bg {
+  background: linear-gradient(135deg, #1d2b64, #f8cdda);
+}
+
 .wrapped-card {
   @apply rounded-2xl p-6 shadow-lg text-white;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  opacity: 0; /* Initial state before animation */
-  transition: transform 0.3s ease-out;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slide-up 0.5s ease-out forwards;
 }
 
-.wrapped-card:hover {
-  transform: scale(1.05) rotate(0deg) !important;
-  z-index: 10;
-}
-
-@keyframes boing-in-left {
-  0% {
-    opacity: 0;
-    transform: translateY(50px) rotate(5deg) scale(0.8);
-  }
-  60% {
+@keyframes slide-up {
+  to {
     opacity: 1;
-    transform: translateY(-10px) rotate(-4deg) scale(1.05);
+    transform: translateY(0);
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(-2deg) scale(1);
-  }
-}
-
-@keyframes boing-in-right {
-  0% {
-    opacity: 0;
-    transform: translateY(50px) rotate(-5deg) scale(0.8);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-10px) rotate(4deg) scale(1.05);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(2deg) scale(1);
-  }
-}
-
-.wrapped-card-1, .wrapped-card-3, .wrapped-card-5, .wrapped-card-7 {
-  animation: boing-in-left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.wrapped-card-2, .wrapped-card-4, .wrapped-card-6 {
-  animation: boing-in-right 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .wrapped-card-1 { animation-delay: 0.2s; }
@@ -181,7 +150,6 @@ body {
 .wrapped-card-4 { animation-delay: 0.8s; }
 .wrapped-card-5 { animation-delay: 1.0s; }
 .wrapped-card-6 { animation-delay: 1.2s; }
-.wrapped-card-7 { animation-delay: 1.4s; }
 
 .wrapped-title {
   @apply text-4xl md:text-5xl font-black tracking-tighter;
@@ -195,24 +163,4 @@ body {
 .wrapped-highlight {
   @apply text-5xl md:text-7xl font-bold text-white;
   text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-}
-
-/* Dynamic Theme Backgrounds */
-.theme-sunny-day {
-  background: linear-gradient(135deg, #ffc371, #ff5f6d);
-}
-.theme-starry-night {
-  background: linear-gradient(135deg, #2c3e50, #4ca1af);
-}
-.theme-party {
-  background: linear-gradient(135deg, #ff00cc, #333399);
-}
-.theme-focused {
-  background: linear-gradient(135deg, #2193b0, #6dd5ed);
-}
-.theme-retro-pop {
-  background: linear-gradient(135deg, #f953c6, #b91d73);
-}
-.theme-lofi {
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
