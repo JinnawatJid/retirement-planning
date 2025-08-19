@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './WrappedResult.module.css';
-import { X, MoreHorizontal, Pencil, Share2 } from 'lucide-react';
+import { X, MoreHorizontal, Pencil, Share2, Loader2 } from 'lucide-react';
 import ThemeModal from './ThemeModal';
+import html2canvas from 'html2canvas';
+import ShareableCard from './ShareableCard';
 
 interface FormData {
   name: string;
@@ -18,14 +20,83 @@ interface FormData {
 interface WrappedResultProps {
   data: FormData;
   onClose: () => void;
-  onShare: () => void;
 }
 
-const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare }) => {
+const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
   const { t, language } = useLanguage();
   const [activeTheme, setActiveTheme] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+  const shareableCardRef = useRef<HTMLDivElement>(null);
+
+  const handleShare = async () => {
+    setIsSharing(true);
+    setIsMenuOpen(false);
+
+    // Create a temporary container for the card
+    const cardContainer = document.createElement('div');
+    cardContainer.style.position = 'fixed';
+    cardContainer.style.left = '-9999px';
+    cardContainer.style.top = '-9999px';
+    document.body.appendChild(cardContainer);
+
+    // Render the card inside the container
+    const cardElement = React.createElement(ShareableCard, { data, theme: activeTheme });
+    const tempDiv = document.createElement('div');
+    cardContainer.appendChild(tempDiv);
+
+    // This is a bit of a hack to render the component so html2canvas can see it.
+    // In a real app, we might use ReactDOM.createPortal or a more robust solution.
+    const root = (await import('react-dom/client')).createRoot(tempDiv);
+    root.render(cardElement);
+
+
+    // Allow time for the component to render
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const canvas = await html2canvas(tempDiv.firstElementChild as HTMLElement, {
+        useCORS: true,
+        backgroundColor: null,
+    });
+    const imageUrl = canvas.toDataURL('image/png');
+
+    // Cleanup the temporary container FIRST
+    root.unmount();
+    document.body.removeChild(cardContainer);
+
+    try {
+      const blob = await fetch(imageUrl).then(res => res.blob());
+      const file = new File([blob], 'retirement-card.png', { type: 'image/png' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'My Retirement Plan',
+          text: 'Check out my retirement plan!',
+        });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'retirement-card.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (error) {
+      console.error('Sharing failed:', error);
+      // Fallback for when sharing fails (e.g., user cancels)
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = 'retirement-card.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } finally {
+      setIsSharing(false);
+    }
+  };
 
   const handleThemeSelect = (theme: string) => {
     setActiveTheme(theme);
@@ -57,12 +128,12 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
   return (
     <div className={`${styles.wrappedContainer} ${activeTheme}`}>
       <div className={styles.menuContainer}>
-        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.menuButton}>
-          <MoreHorizontal size={24} />
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.menuButton} disabled={isSharing}>
+          {isSharing ? <Loader2 size={24} className="animate-spin" /> : <MoreHorizontal size={24} />}
         </button>
         {isMenuOpen && (
           <div className={styles.dropdownMenu}>
-            <button onClick={() => { onShare(); setIsMenuOpen(false); }} className={styles.dropdownItem}>
+            <button onClick={handleShare} className={styles.dropdownItem}>
               <Share2 size={18} className="mr-2" />
               Share
             </button>

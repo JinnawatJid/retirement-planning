@@ -16,15 +16,13 @@ interface FormData {
 interface ResultsPageProps {
   data: FormData;
   onClose: () => void;
-  onShare: () => void;
 }
 
-export default function ResultsPage({ data, onClose, onShare }: ResultsPageProps) {
+export default function ResultsPage({ data, onClose }: ResultsPageProps) {
   return (
     <WrappedResult
       data={data}
       onClose={onClose}
-      onShare={onShare}
     />
   );
 }
