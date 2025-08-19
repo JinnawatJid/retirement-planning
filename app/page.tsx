@@ -5,7 +5,6 @@ import Header from '@/components/Header';
 import LandingPage from '@/components/LandingPage';
 import RetirementForm from '@/components/RetirementForm';
 import ResultsPage from '@/components/ResultsPage';
-import ShareModal from '@/components/ShareModal';
 import DonationModal from '@/components/DonationModal';
 
 interface FormData {
@@ -24,7 +23,6 @@ type ViewState = 'landing' | 'form' | 'results';
 export default function Home() {
   const [currentView, setCurrentView] = useState<ViewState>('landing');
   const [formData, setFormData] = useState<FormData | null>(null);
-  const [showShareModal, setShowShareModal] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
 
   // Check for URL parameters on load (for shared results)
@@ -68,10 +66,6 @@ export default function Home() {
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
-  const handleShare = () => {
-    setShowShareModal(true);
-  };
-
   const handleDonation = () => {
     setShowDonationModal(true);
   };
@@ -95,15 +89,8 @@ export default function Home() {
         <ResultsPage 
           data={formData}
           onClose={handleResultsClose}
-          onShare={handleShare}
         />
       )}
-
-      <ShareModal
-        isOpen={showShareModal}
-        onClose={() => setShowShareModal(false)}
-        data={formData}
-      />
 
       <DonationModal
         isOpen={showDonationModal}

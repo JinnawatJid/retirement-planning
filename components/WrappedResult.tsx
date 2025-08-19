@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { toPng } from 'html-to-image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './WrappedResult.module.css';
 import { X, MoreHorizontal, Pencil, Share2 } from 'lucide-react';
 import ThemeModal from './ThemeModal';
+import ShareableCard from './ShareableCard';
 
 interface FormData {
   name: string;
@@ -18,14 +20,45 @@ interface FormData {
 interface WrappedResultProps {
   data: FormData;
   onClose: () => void;
-  onShare: () => void;
 }
 
-const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare }) => {
+const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
   const { t, language } = useLanguage();
+  const cardRef = useRef<HTMLDivElement>(null);
   const [activeTheme, setActiveTheme] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+
+  const handleShareAsImage = async () => {
+    if (!cardRef.current) {
+      return;
+    }
+
+    try {
+      const dataUrl = await toPng(cardRef.current, { cacheBust: true });
+
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], 'retirement-card.png', { type: blob.type });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'My Retirement Plan!',
+          text: 'Check out my retirement plan card!',
+        });
+      } else {
+        throw new Error("Web Share API not supported for files.");
+      }
+    } catch (error) {
+      console.error('Sharing failed, falling back to download', error);
+      // Fallback to download
+      const dataUrl = await toPng(cardRef.current, { cacheBust: true });
+      const link = document.createElement('a');
+      link.download = 'retirement-card.png';
+      link.href = dataUrl;
+      link.click();
+    }
+  };
 
   const handleThemeSelect = (theme: string) => {
     setActiveTheme(theme);
@@ -49,6 +82,17 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
   const isSufficient = totalSavings >= totalExpenses;
   const balance = totalSavings - totalExpenses;
 
+  const getFinancialPersona = (data: FormData): string => {
+    const savingsRate = (data.monthlySavings * 12) / data.salary;
+    if (data.retireAge < 50) return "Chillonaire";
+    if (savingsRate > 0.3) return "Future Mogul";
+    if (savingsRate > 0.15) return "Side-Hustle Superstar";
+    if (isSufficient && data.retireAge <= 65) return "Golden Years Guru";
+    if (!isSufficient) return "Vibe Curator";
+    return "Slow and Steady";
+  };
+  const persona = getFinancialPersona(data);
+
   useEffect(() => {
     // Set default theme based on results
     setActiveTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
@@ -62,7 +106,7 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
         </button>
         {isMenuOpen && (
           <div className={styles.dropdownMenu}>
-            <button onClick={() => { onShare(); setIsMenuOpen(false); }} className={styles.dropdownItem}>
+            <button onClick={() => { handleShareAsImage(); setIsMenuOpen(false); }} className={styles.dropdownItem}>
               <Share2 size={18} className="mr-2" />
               Share
             </button>
@@ -145,6 +189,7 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
         onClose={() => setIsThemeModalOpen(false)}
         onSelectTheme={handleThemeSelect}
       />
+      <ShareableCard ref={cardRef} data={data} persona={persona} activeTheme={activeTheme} />
     </div>
   );
 };

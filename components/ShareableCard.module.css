@@ -1,0 +1,125 @@
+.cardContainer {
+    width: 375px; /* iPhone X width */
+    height: 667px; /* iPhone X height-ish for a 9:16 feel */
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    left: -9999px; /* Render off-screen */
+    top: 0;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 1.5rem;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+}
+
+.headerText {
+    flex-grow: 1;
+}
+
+.name {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.personaTitle {
+    font-size: 1rem;
+    font-weight: 300;
+    opacity: 0.8;
+    margin: 0.25rem 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.persona {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.cardBody {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+}
+
+.statItem {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.statLabel {
+    font-size: 1rem;
+    font-weight: 300;
+    opacity: 0.8;
+    margin: 0 0 0.5rem;
+}
+
+.statValue {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1;
+}
+
+.cardFooter {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 1.5rem;
+}
+
+.qrCode {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.footerText {
+    flex-grow: 1;
+}
+
+.appName {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.footerUrl {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin: 0;
+}
