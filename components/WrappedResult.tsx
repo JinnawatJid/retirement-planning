@@ -36,7 +36,7 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose }) => {
 
     try {
       const dataUrl = await toPng(cardRef.current, { cacheBust: true });
-
+      
       const blob = await (await fetch(dataUrl)).blob();
       const file = new File([blob], 'retirement-card.png', { type: blob.type });
 
