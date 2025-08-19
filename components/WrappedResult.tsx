@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import styles from './WrappedResult.module.css';
-import { X, MoreHorizontal, Pencil } from 'lucide-react';
+import { X, MoreHorizontal, Pencil, Share2 } from 'lucide-react';
+import ThemeModal from './ThemeModal';
 
 interface FormData {
   name: string;
@@ -19,8 +20,6 @@ interface WrappedResultProps {
   onClose: () => void;
   onShare: () => void;
 }
-
-import ThemeModal from './ThemeModal';
 
 const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare }) => {
   const { t, language } = useLanguage();
@@ -63,7 +62,11 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
         </button>
         {isMenuOpen && (
           <div className={styles.dropdownMenu}>
-            <button onClick={() => setIsThemeModalOpen(true)} className={styles.dropdownItem}>
+            <button onClick={() => { onShare(); setIsMenuOpen(false); }} className={styles.dropdownItem}>
+              <Share2 size={18} className="mr-2" />
+              Share
+            </button>
+            <button onClick={() => { setIsThemeModalOpen(true); setIsMenuOpen(false); }} className={styles.dropdownItem}>
               <Pencil size={18} className="mr-2" />
               Edit Theme
             </button>
