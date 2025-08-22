@@ -216,3 +216,7 @@ body {
 .theme-lofi {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
+
+body.wrapped-active {
+  overflow-y: auto;
+}
