@@ -54,8 +54,18 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
     setActiveTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
   }, [isSufficient]);
 
+  useEffect(() => {
+    const originalBodyClassName = document.body.className;
+    if (activeTheme) {
+      document.body.className = `wrapped-active ${activeTheme}`;
+    }
+    return () => {
+      document.body.className = originalBodyClassName;
+    };
+  }, [activeTheme]);
+
   return (
-    <div className={`${styles.wrappedContainer} ${activeTheme}`}>
+    <div className={styles.wrappedContainer}>
       <div className={styles.menuContainer}>
         <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.menuButton}>
           <MoreHorizontal size={24} />
