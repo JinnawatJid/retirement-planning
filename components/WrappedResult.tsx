@@ -55,12 +55,18 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
   }, [isSufficient]);
 
   useEffect(() => {
-    const originalBodyClassName = document.body.className;
+    const body = document.body;
+    body.classList.add('wrapped-active');
+
     if (activeTheme) {
-      document.body.className = `wrapped-active ${activeTheme}`;
+      body.classList.add(activeTheme);
     }
+
     return () => {
-      document.body.className = originalBodyClassName;
+      body.classList.remove('wrapped-active');
+      if (activeTheme) {
+        body.classList.remove(activeTheme);
+      }
     };
   }, [activeTheme]);
 
