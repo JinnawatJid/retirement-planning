@@ -2,35 +2,38 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type Theme = 'light' | 'dark';
-
 interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
+  theme: string;
+  setTheme: (theme: string) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState('theme-sunny-day'); // Default theme
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme') as Theme;
-    if (saved && (saved === 'light' || saved === 'dark')) {
-      setTheme(saved);
-      document.documentElement.classList.toggle('dark', saved === 'dark');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
     }
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-  };
+  useEffect(() => {
+    const body = document.body;
+    // Remove any existing theme classes
+    const themes = ['theme-sunny-day', 'theme-starry-night', 'theme-party', 'theme-focused', 'theme-retro-pop', 'theme-lofi'];
+    themes.forEach(t => body.classList.remove(t));
+
+    // Add the new theme class
+    if (theme) {
+      body.classList.add(theme);
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
