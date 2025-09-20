@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useWrappedTheme } from '@/contexts/WrappedThemeContext';
 import styles from './WrappedResult.module.css';
 import { X, MoreHorizontal, Pencil, Share2 } from 'lucide-react';
 import ThemeModal from './ThemeModal';
@@ -23,12 +24,12 @@ interface WrappedResultProps {
 
 const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare }) => {
   const { t, language } = useLanguage();
-  const [activeTheme, setActiveTheme] = useState('');
+  const { theme, setTheme } = useWrappedTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
 
-  const handleThemeSelect = (theme: string) => {
-    setActiveTheme(theme);
+  const handleThemeSelect = (selectedTheme: string) => {
+    setTheme(selectedTheme);
     setIsThemeModalOpen(false);
   };
 
@@ -51,18 +52,21 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
 
   useEffect(() => {
     // Set default theme based on results
-    setActiveTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
-  }, [isSufficient]);
+    setTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
+  }, [isSufficient, setTheme]);
 
   useEffect(() => {
-    const originalBodyClassName = document.body.className;
-    if (activeTheme) {
-      document.body.className = `wrapped-active ${activeTheme}`;
+    const body = document.body;
+    const originalClasses = body.className;
+
+    if (theme) {
+      body.className = `wrapped-active ${theme}`;
     }
+
     return () => {
-      document.body.className = originalBodyClassName;
+      body.className = originalClasses;
     };
-  }, [activeTheme]);
+  }, [theme]);
 
   return (
     <div className={styles.wrappedContainer}>

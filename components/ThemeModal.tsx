@@ -2,17 +2,24 @@
 
 import { X } from 'lucide-react';
 import React from 'react';
+import { useWrappedTheme } from '@/contexts/WrappedThemeContext';
 
 interface ThemeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectTheme: (theme: string) => void;
 }
 
-const ThemeModal: React.FC<ThemeModalProps> = ({ isOpen, onClose, onSelectTheme }) => {
+const ThemeModal: React.FC<ThemeModalProps> = ({ isOpen, onClose }) => {
+  const { setTheme } = useWrappedTheme();
+
   if (!isOpen) {
     return null;
   }
+
+  const handleSelectTheme = (theme: string) => {
+    setTheme(theme);
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 z-[150] flex items-center justify-center modal-backdrop">
@@ -30,7 +37,7 @@ const ThemeModal: React.FC<ThemeModalProps> = ({ isOpen, onClose, onSelectTheme 
           {themes.map((theme) => (
             <button
               key={theme.name}
-              onClick={() => onSelectTheme(theme.class)}
+              onClick={() => handleSelectTheme(theme.class)}
               className={`w-full h-24 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md transition-transform transform hover:scale-105 ${theme.class}`}
             >
               {theme.name}

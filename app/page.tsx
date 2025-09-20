@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import LandingPage from '@/components/LandingPage';
 import RetirementForm from '@/components/RetirementForm';
+import { WrappedThemeProvider } from '@/contexts/WrappedThemeContext';
 import ResultsPage from '@/components/ResultsPage';
 import ShareModal from '@/components/ShareModal';
 import DonationModal from '@/components/DonationModal';
@@ -92,11 +93,13 @@ export default function Home() {
       )}
       
       {currentView === 'results' && formData && (
-        <ResultsPage 
-          data={formData}
-          onClose={handleResultsClose}
-          onShare={handleShare}
-        />
+        <WrappedThemeProvider>
+          <ResultsPage
+            data={formData}
+            onClose={handleResultsClose}
+            onShare={handleShare}
+          />
+        </WrappedThemeProvider>
       )}
 
       <ShareModal
