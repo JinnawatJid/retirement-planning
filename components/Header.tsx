@@ -10,7 +10,15 @@ interface HeaderProps {
 
 export default function Header({ onDonationClick }: HeaderProps) {
   const { language, setLanguage, t } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    // Toggle between a default light and dark theme
+    const newTheme = theme === 'theme-sunny-day' ? 'theme-starry-night' : 'theme-sunny-day';
+    setTheme(newTheme);
+  };
+
+  const isLightTheme = theme === 'theme-sunny-day';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -39,9 +47,9 @@ export default function Header({ onDonationClick }: HeaderProps) {
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            title={theme === 'light' ? t('common.darkMode') : t('common.lightMode')}
+            title={isLightTheme ? t('common.darkMode') : t('common.lightMode')}
           >
-            {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            {isLightTheme ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
           </button>
 
           {/* Donation Button */}

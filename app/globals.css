@@ -198,22 +198,22 @@ body {
 }
 
 /* Dynamic Theme Backgrounds */
-.theme-sunny-day {
+body.theme-sunny-day {
   background: linear-gradient(135deg, #ffc371, #ff5f6d);
 }
-.theme-starry-night {
+body.theme-starry-night {
   background: linear-gradient(135deg, #2c3e50, #4ca1af);
 }
-.theme-party {
+body.theme-party {
   background: linear-gradient(135deg, #ff00cc, #333399);
 }
-.theme-focused {
+body.theme-focused {
   background: linear-gradient(135deg, #2193b0, #6dd5ed);
 }
-.theme-retro-pop {
+body.theme-retro-pop {
   background: linear-gradient(135deg, #f953c6, #b91d73);
 }
-.theme-lofi {
+body.theme-lofi {
   background: linear-gradient(135deg, #89f7fe, #66a6ff);
 }
 
