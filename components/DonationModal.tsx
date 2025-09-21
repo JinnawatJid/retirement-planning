@@ -14,10 +14,6 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
   if (!isOpen) return null;
 
-  // PromptPay QR Code data (replace with actual PromptPay ID)
-  const promptPayId = "0123456789"; // Replace with actual PromptPay phone number or ID
-  const qrData = `00020101021129370016A000000677010111011${promptPayId.length.toString().padStart(2, '0')}${promptPayId}5802TH6304`;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center modal-backdrop">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md mx-4">
@@ -57,21 +53,10 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
               
               {/* QR Code */}
               <div className="bg-white p-4 rounded-lg inline-block mb-4">
-                <QRCode
-                  size={200}
-                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                  value={qrData}
-                  viewBox={`0 0 200 200`}
-                />
+                <img src="/qrcode/665857.jpg" alt="QR Code" className="w-40 h-40 object-cover" />
               </div>
               
               <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                <p>
-                  <span className="font-medium">{t('donation.bank')}:</span> Bangkok Bank
-                </p>
-                <p>
-                  <span className="font-medium">PromptPay ID:</span> {promptPayId}
-                </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   {language === 'th' 
                     ? 'สแกน QR Code ด้วยแอปธนาคารของคุณ'
@@ -82,45 +67,10 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
             </div>
           </div>
 
-          {/* Donation Amounts */}
-          <div className="grid grid-cols-3 gap-3 mb-6">
-            {[50, 100, 200].map((amount) => (
-              <button
-                key={amount}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center"
-                onClick={() => {
-                  // Generate QR with specific amount
-                  const amountQR = `00020101021129370016A000000677010111011${promptPayId.length.toString().padStart(2, '0')}${promptPayId}5303764540${amount.toString().length}${amount}5802TH6304`;
-                  // You could update the QR code here or show amount-specific instructions
-                }}
-              >
-                <div className="text-lg font-bold text-primary-600 dark:text-primary-400">
-                  ฿{amount}
-                </div>
-              </button>
-            ))}
-          </div>
-
           {/* Thank you message */}
           <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <p className="text-green-800 dark:text-green-400 font-medium">
               {t('donation.thanks')}
-            </p>
-          </div>
-
-          {/* Additional Info */}
-          <div className="mt-6 text-xs text-gray-500 dark:text-gray-400 text-center space-y-1">
-            <p>
-              {language === 'th' 
-                ? 'การบริจาคจะช่วยในการพัฒนาและปรับปรุงเครื่องมือนี้'
-                : 'Donations help improve and maintain this tool'
-              }
-            </p>
-            <p>
-              {language === 'th' 
-                ? 'เราไม่เก็บข้อมูลการบริจาคของคุณ'
-                : 'We do not store your donation information'
-              }
             </p>
           </div>
         </div>
