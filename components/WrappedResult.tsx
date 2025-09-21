@@ -46,11 +46,6 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
   const balance = totalSavings - totalExpenses;
 
   useEffect(() => {
-    // Set default theme based on results
-    setTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
-  }, [isSufficient, setTheme]);
-
-  useEffect(() => {
     const body = document.body;
     body.classList.add('wrapped-active');
 
