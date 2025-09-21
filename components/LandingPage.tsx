@@ -114,20 +114,6 @@ export default function LandingPage({ onStartCalculator }: LandingPageProps) {
           </div>
         </div>
       </div>
-
-      {/* Ad Space */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-8 text-center">
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
-            Advertisement Space
-          </p>
-          <div className="h-24 flex items-center justify-center">
-            <span className="text-gray-400 dark:text-gray-500">
-              [Your Ad Here]
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
