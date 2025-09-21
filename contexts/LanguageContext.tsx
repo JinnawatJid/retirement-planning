@@ -85,10 +85,9 @@ const translations = {
     'share.copied': 'คัดลอกแล้ว!',
     
     // Donation
-    'donation.title': 'สนับสนุนนักพัฒนา',
-    'donation.subtitle': 'หากคุณชอบเครื่องมือนี้ สามารถสนับสนุนการพัฒนาได้',
+    'donation.title': 'สนับสนุนเด็กตาดำๆ',
+    'donation.subtitle': 'หากคุณชอบเครื่องมือนี้ สามารถสนับสนุนเราได้',
     'donation.promptpay': 'โอนผ่าน PromptPay',
-    'donation.bank': 'ธนาคารกรุงเทพ',
     'donation.thanks': 'ขอบคุณสำหรับการสนับสนุน!',
     'donation.close': 'ปิด',
     

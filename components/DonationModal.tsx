@@ -2,7 +2,6 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { X, Heart, CreditCard } from 'lucide-react';
-import QRCode from 'react-qr-code';
 
 interface DonationModalProps {
   isOpen: boolean;
@@ -21,7 +20,7 @@ export default function DonationModal({ isOpen, onClose }: DonationModalProps) {
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center">
-              <Heart className="w-5 h-5 text-white" />
+              🥺
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
               {t('donation.title')}
