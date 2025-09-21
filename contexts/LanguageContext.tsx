@@ -56,7 +56,7 @@ const translations = {
 
     'form.whoAreYou': 'เธอคือใคร?',
     'form.yourName': 'ชื่อของเธอละ?',
-    'form.namePlaceholder': 'เช่น จิณณวัฒน์',
+    'form.namePlaceholder': 'เช่น Jinnawat.Finance',
     'form.selectAvatar': 'เลือกอวตาร',
     'form.uploadAvatar': 'อัปโหลดรูปภาพ',
     
