@@ -70,7 +70,11 @@ const WrappedResult: React.FC<WrappedResultProps> = ({ data, onClose, onShare })
               <Pencil size={18} className="mr-2" />
               Edit Theme
             </button>
-            <button onClick={onClose} className={styles.dropdownItem}>
+            <button onClick={() => {
+              // Reset theme to default before closing
+              setActiveTheme(isSufficient ? 'theme-sunny-day' : 'theme-starry-night');
+              onClose();
+            }} className={styles.dropdownItem}>
               <X size={18} className="mr-2" />
               Close
             </button>

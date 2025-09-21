@@ -79,10 +79,10 @@
 }
 
 .menuContainer {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 110;
+    position: fixed;
+    top: 5rem;
+    right: 1.5rem;
+    z-index: 150;
 }
 
 .menuButton {
